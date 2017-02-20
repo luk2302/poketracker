@@ -1,12 +1,11 @@
 import UIKit
-import MapKit
 import Alamofire
+import MapKit
 import AlamofireObjectMapper
 import ObjectMapper
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var serverTextField: UITextField!
     var locationManager : CLLocationManager!
     var location = CLLocation(latitude: 0.0, longitude: 0.0)
@@ -43,16 +42,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
     }
     
-    func sendLocationUpdate() {
-        /*let server = serverTextField.text! + "/next_loc?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)"
-        Alamofire.request(.POST, server).responseString(completionHandler: { (response : Response<String, NSError>) in
-            print("did send location update")
-            self.alert("Location updated", body: "The scan location has been updated")
-        })*/
-    }
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        mapView.showsUserLocation = true
         locationManager.startUpdatingLocation()
         print("changed")
     }
@@ -60,15 +50,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location updating error: " + error.localizedDescription)
     }
-
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        mapView.region = MKCoordinateRegion(center: userLocation.location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008))
-    }
     
-    @IBAction func setLocationOnServer(_ sender : AnyObject) {
-        sendLocationUpdate()
-    }
-
     @IBAction func play(_ sender: AnyObject) {
         timer?.invalidate()
         serverTextField.resignFirstResponder()

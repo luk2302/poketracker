@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,7 +38,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jfn-bt-zkU">
-                                <rect key="frame" x="16" y="66" width="343" height="382.5"/>
+                                <rect key="frame" x="16" y="66" width="343" height="581"/>
                                 <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="058-5G-j7I">
                                     <size key="itemSize" width="90" height="70"/>
@@ -117,12 +116,6 @@
                                     <action selector="setLocationOnServer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r7D-eb-H8N"/>
                                 </connections>
                             </button>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTO-CD-DWS">
-                                <rect key="frame" x="16" y="456" width="343" height="191"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="yDy-rL-vq3"/>
-                                </connections>
-                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="0.088202916085720062" green="0.67300504446029663" blue="0.1802862286567688" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -132,17 +125,13 @@
                             <constraint firstItem="FMh-yj-GK5" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="6qR-a4-VeB"/>
                             <constraint firstItem="VbY-Rt-8xR" firstAttribute="leading" secondItem="FMh-yj-GK5" secondAttribute="trailing" constant="10" id="8bb-w8-eB4"/>
                             <constraint firstItem="cwI-f1-Y9B" firstAttribute="height" secondItem="VbY-Rt-8xR" secondAttribute="height" id="B8K-83-n44"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kTO-CD-DWS" secondAttribute="bottom" constant="20" id="Cv6-Ot-eIW"/>
                             <constraint firstItem="Jfn-bt-zkU" firstAttribute="top" secondItem="FMh-yj-GK5" secondAttribute="bottom" constant="8" id="HJw-oF-MjF"/>
-                            <constraint firstItem="kTO-CD-DWS" firstAttribute="height" secondItem="Jfn-bt-zkU" secondAttribute="height" multiplier="0.5" id="IYB-Xb-4n0"/>
-                            <constraint firstItem="kTO-CD-DWS" firstAttribute="top" secondItem="Jfn-bt-zkU" secondAttribute="bottom" constant="8" id="Jnh-5E-hym"/>
-                            <constraint firstItem="kTO-CD-DWS" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="PYE-GQ-eYF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jfn-bt-zkU" secondAttribute="bottom" constant="20" id="K4H-K3-tk8"/>
                             <constraint firstItem="cwI-f1-Y9B" firstAttribute="leading" secondItem="VbY-Rt-8xR" secondAttribute="trailing" constant="8" id="fIy-hF-dzy"/>
                             <constraint firstItem="Jfn-bt-zkU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gd2-y5-qrt"/>
                             <constraint firstItem="VbY-Rt-8xR" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="l2j-lz-ULe"/>
                             <constraint firstItem="cwI-f1-Y9B" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="n4g-GH-qHC"/>
                             <constraint firstItem="FMh-yj-GK5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="s4v-3I-D14"/>
-                            <constraint firstItem="kTO-CD-DWS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="s7x-mo-2P2"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -154,14 +143,13 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="actionButton" destination="VbY-Rt-8xR" id="IRo-Sj-jo7"/>
-                        <outlet property="mapView" destination="kTO-CD-DWS" id="fQe-aV-Me4"/>
                         <outlet property="pokemonDisplay" destination="Jfn-bt-zkU" id="10c-4g-zEM"/>
                         <outlet property="serverTextField" destination="FMh-yj-GK5" id="JLO-CC-2gg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="287" y="397"/>
+            <point key="canvasLocation" x="285.60000000000002" y="396.25187406296857"/>
         </scene>
     </scenes>
 </document>
