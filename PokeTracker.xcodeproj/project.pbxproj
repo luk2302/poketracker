@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4297D4B81E5BA07800BEC489 /* UIImage+Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */; };
 		4298833E1D4FD8F600AB7125 /* PokeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4298833D1D4FD8F600AB7125 /* PokeManager.swift */; };
 		42A7C9481D4FAEFE005842FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C9471D4FAEFE005842FD /* AppDelegate.swift */; };
-		42A7C94A1D4FAEFE005842FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C9491D4FAEFE005842FD /* ViewController.swift */; };
+		42A7C94A1D4FAEFE005842FD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C9491D4FAEFE005842FD /* MainViewController.swift */; };
 		42A7C94D1D4FAEFE005842FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A7C94B1D4FAEFE005842FD /* Main.storyboard */; };
 		42A7C94F1D4FAEFE005842FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42A7C94E1D4FAEFE005842FD /* Assets.xcassets */; };
 		42A7C9521D4FAEFE005842FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A7C9501D4FAEFE005842FD /* LaunchScreen.storyboard */; };
@@ -17,14 +18,19 @@
 		42A7C95C1D4FC0CD005842FD /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C95B1D4FC0CD005842FD /* Pokemon.swift */; };
 		42C9AF2A1D4FDD58000F1821 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C9AF291D4FDD58000F1821 /* Globals.swift */; };
 		42C9AF2C1D4FE084000F1821 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C9AF2B1D4FE084000F1821 /* PokemonCell.swift */; };
+		42D291E21E5B7369004BC630 /* mons.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D291E11E5B7369004BC630 /* mons.png */; };
+		42D291E41E5B7C44004BC630 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D291E31E5B7C44004BC630 /* Settings.swift */; };
 		F81606007701E72AA33A834C /* Pods_PokeTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E947F169390E9AD6E7189645 /* Pods_PokeTracker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4297D4B31E5B9FF300BEC489 /* PokeTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PokeTracker-Bridging-Header.h"; sourceTree = "<group>"; };
+		4297D4B61E5BA07800BEC489 /* UIImage+Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Sprite.h"; sourceTree = "<group>"; };
+		4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Sprite.m"; sourceTree = "<group>"; };
 		4298833D1D4FD8F600AB7125 /* PokeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeManager.swift; sourceTree = "<group>"; };
 		42A7C9441D4FAEFE005842FD /* PokeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42A7C9471D4FAEFE005842FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		42A7C9491D4FAEFE005842FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		42A7C9491D4FAEFE005842FD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		42A7C94C1D4FAEFE005842FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42A7C94E1D4FAEFE005842FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42A7C9511D4FAEFE005842FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -33,6 +39,8 @@
 		42A7C95B1D4FC0CD005842FD /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		42C9AF291D4FDD58000F1821 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		42C9AF2B1D4FE084000F1821 /* PokemonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
+		42D291E11E5B7369004BC630 /* mons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mons.png; sourceTree = "<group>"; };
+		42D291E31E5B7C44004BC630 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C8C6097B890E538DD5C8AA3C /* Pods-PokeTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PokeTracker/Pods-PokeTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		E947F169390E9AD6E7189645 /* Pods_PokeTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1CE4B899A8F51598E5E3BA /* Pods-PokeTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-PokeTracker/Pods-PokeTracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,8 +90,11 @@
 		42A7C9461D4FAEFE005842FD /* PokeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				4297D4B61E5BA07800BEC489 /* UIImage+Sprite.h */,
+				4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */,
 				42A7C9471D4FAEFE005842FD /* AppDelegate.swift */,
-				42A7C9491D4FAEFE005842FD /* ViewController.swift */,
+				42D291E11E5B7369004BC630 /* mons.png */,
+				42A7C9491D4FAEFE005842FD /* MainViewController.swift */,
 				42A7C94B1D4FAEFE005842FD /* Main.storyboard */,
 				42A7C94E1D4FAEFE005842FD /* Assets.xcassets */,
 				42A7C9501D4FAEFE005842FD /* LaunchScreen.storyboard */,
@@ -92,6 +103,8 @@
 				4298833D1D4FD8F600AB7125 /* PokeManager.swift */,
 				42C9AF291D4FDD58000F1821 /* Globals.swift */,
 				42C9AF2B1D4FE084000F1821 /* PokemonCell.swift */,
+				42D291E31E5B7C44004BC630 /* Settings.swift */,
+				4297D4B31E5B9FF300BEC489 /* PokeTracker-Bridging-Header.h */,
 			);
 			path = PokeTracker;
 			sourceTree = "<group>";
@@ -169,6 +182,7 @@
 			files = (
 				42A7C9521D4FAEFE005842FD /* LaunchScreen.storyboard in Resources */,
 				42A7C94F1D4FAEFE005842FD /* Assets.xcassets in Resources */,
+				42D291E21E5B7369004BC630 /* mons.png in Resources */,
 				42A7C94D1D4FAEFE005842FD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,11 +242,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42A7C94A1D4FAEFE005842FD /* ViewController.swift in Sources */,
+				42A7C94A1D4FAEFE005842FD /* MainViewController.swift in Sources */,
 				42A7C9481D4FAEFE005842FD /* AppDelegate.swift in Sources */,
 				4298833E1D4FD8F600AB7125 /* PokeManager.swift in Sources */,
 				42C9AF2A1D4FDD58000F1821 /* Globals.swift in Sources */,
+				42D291E41E5B7C44004BC630 /* Settings.swift in Sources */,
 				42A7C95C1D4FC0CD005842FD /* Pokemon.swift in Sources */,
+				4297D4B81E5BA07800BEC489 /* UIImage+Sprite.m in Sources */,
 				42C9AF2C1D4FE084000F1821 /* PokemonCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +369,7 @@
 			baseConfigurationReference = C8C6097B890E538DD5C8AA3C /* Pods-PokeTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PokeTracker/Info.plist;
@@ -360,6 +377,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lukrin.PokeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PokeTracker/PokeTracker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -369,6 +388,7 @@
 			baseConfigurationReference = FD1CE4B899A8F51598E5E3BA /* Pods-PokeTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PokeTracker/Info.plist;
@@ -376,6 +396,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lukrin.PokeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PokeTracker/PokeTracker-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

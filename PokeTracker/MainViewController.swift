@@ -4,7 +4,7 @@ import MapKit
 import AlamofireObjectMapper
 import ObjectMapper
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var serverTextField: UITextField!
     var locationManager : CLLocationManager!
@@ -44,7 +44,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
-        print("changed")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -57,20 +56,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         playing = !playing
         if playing {
             print("starting to play")
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.requestServer), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(MainViewController.requestServer), userInfo: nil, repeats: true)
             timer?.fire()
-            alert("Started", body: "Started requesting pokemon data")
         }
         actionButton.setTitle(playing ? "stop" : "start", for: UIControlState())
         UserDefaults.standard.set(serverTextField.text!, forKey: "url")
     }
     
-    func alert(_ title : String, body : String) {
-        let alert = UIAlertView(title: title, message: body, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
-        alert.show()
-    }
-    
-    var range = 5
+    var range = 1
     var requestCount = 0
     let scanOffsetLat = 0.01
     let scanOffsetLon = 0.05
@@ -87,8 +80,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         let offsetLon = Double(yoff) * scanOffsetLon // negative is left, positive is right
         let rangeLat = scanOffsetLat
         let rangeLon = scanOffsetLon
-        
-        //print("requesting pokemon for \(lat + offsetLat), \(lon + offsetLon)")
         
         let latS = lat.advanced(by: offsetLat - rangeLat / 2)
         let latE = lat.advanced(by: offsetLat + rangeLat / 2)
@@ -117,15 +108,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         return pokeManager.pokemonCount
     }
     
-    func getDistanceDesc(_ distance : Int) -> String {
-        let distanceRanges = [50, 100, 200, 500, 1000, 2000]
-        let distanceDesc = ["Catch it", "Quite Close", "Close", "Medium", "A Walk", "Far Away", "Far faaar"]
-        let near = distanceRanges.filter { $0 < distance }.count
-        return "\(distanceDesc[near])"
-    }
-    
     func getDistanceDesc2(_ distance : Int) -> String {
-        let distanceRanges = [20, 30, 50, 70, 100, 150, 200, 300, 400, 500, 700, 800, 900, 1000]
+        let distanceRanges = [20, 30, 50, 70, 100, 150, 200, 300, 400, 500, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000]
         if distance < distanceRanges.first! {
             return "< \(distanceRanges.first!)m"
         }
@@ -143,17 +127,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         let pokemon = pokeManager.orderedPokemons[indexPath.item]
         cell.name.text = pokemon.pokemonName
         cell.mon = pokemon
+        cell.image.image = pokemon.image
         let distance = Int(location.distance(from: pokemon.location))
         
         cell.distance.text = "\(getDistanceDesc2(distance))"
-        
-        cell.timeout.text = "\(pokemon.lifeTimer())s"
+        if pokemon.lifeTimer() < 60 {
+            cell.timeout.text = "\(pokemon.lifeTimer())\""
+        } else {
+            cell.timeout.text = "\(pokemon.lifeTimer()/60)'\(pokemon.lifeTimer()%60)\""
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         pokeManager.caught(pokeManager.orderedPokemons[indexPath.item])
         update()
+    }
+    
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        print("what")
     }
 }
 

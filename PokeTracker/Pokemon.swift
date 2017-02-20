@@ -1,10 +1,9 @@
-
-
 import Foundation
 import ObjectMapper
 import CoreLocation
 
 class Pokemon: Mappable {
+    static let sprites = UIImage.sprites(withSpriteSheetImage: UIImage(named:"mons.png")!, spriteSize: CGSize(width: 80.0, height: 80.0)) as! [UIImage]
     var disappearTime : Int
     var pokemonId : Int
     var pokemonName : String
@@ -21,7 +20,11 @@ class Pokemon: Mappable {
     func lifeTimer() -> Int {
         return Int((disappearTime - now()) / 1000)
     }
-    
+    var image : UIImage {
+        get {
+            return Pokemon.sprites[pokemonId - 1]
+        }
+    }
     
     required init?(map: Map) {
         disappearTime = 1
