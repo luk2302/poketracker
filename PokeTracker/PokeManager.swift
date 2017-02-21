@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import SwiftyUserDefaults
 
 class PokeManager {
     
@@ -23,6 +24,16 @@ class PokeManager {
         mon.caught = true
     }
     
+    func follow(_ mon : Pokemon) {
+        mon.follow = true
+    }
+    
+    fileprivate var exclusions : Set<Int>!
+    func updateSettings() {
+        exclusions = Set(Defaults[.exclusions])
+        print(exclusions)
+    }
+    
     func tick(_ location : CLLocation) {
         let despawned = pokemons.values.filter {
             $0.lifeTimer() <= 0
@@ -30,7 +41,7 @@ class PokeManager {
         despawned.forEach {
             pokemons.removeValue(forKey: $0.id)
         }
-        orderedPokemons = getOrderedList(location)
+        orderedPokemons = getOrderedList(location).filter { !exclusions.contains($0.pokemonId) }
         pokemonCount = orderedPokemons.count
     }
     

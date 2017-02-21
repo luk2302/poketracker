@@ -11,6 +11,7 @@ class Pokemon: Mappable {
     fileprivate var lon : Double
     var id : String
     var caught = false
+    var follow = false
     var location : CLLocation {
         get {
             return CLLocation(latitude: lat, longitude: lon)

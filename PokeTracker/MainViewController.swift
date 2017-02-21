@@ -3,8 +3,9 @@ import Alamofire
 import MapKit
 import AlamofireObjectMapper
 import ObjectMapper
+import SwiftyUserDefaults
 
-class MainViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var serverTextField: UITextField!
     var locationManager : CLLocationManager!
@@ -15,6 +16,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     @IBOutlet weak var actionButton: UIButton!
     var pokeManager = PokeManager()
     @IBOutlet weak var pokemonDisplay: UICollectionView!
+    var followingMons = Set<String>()
     
     
     override func viewDidLoad() {
@@ -25,9 +27,17 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
 
-        if let string = UserDefaults.standard.object(forKey: "url") as? String {
-            serverTextField.text = string
+        if let str = Defaults[.url] {
+            serverTextField.text = str
         }
+        if Defaults[.autoStart] {
+            Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(MainViewController.play), userInfo: nil, repeats: false)
+        }
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MainViewController.handleLongPress))
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        lpgr.minimumPressDuration = 0.2
+        self.pokemonDisplay.addGestureRecognizer(lpgr)
     }
     
     var postcounter = 0
@@ -42,6 +52,20 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         }
     }
     
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+        if gesture.state != .ended {
+            return
+        }
+        let p = gesture.location(in: self.pokemonDisplay)
+        
+        if let indexPath = self.pokemonDisplay.indexPathForItem(at: p) {
+            pokeManager.follow(pokeManager.orderedPokemons[indexPath.item])
+            update()
+        } else {
+            print("couldn't find index path")
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
     }
@@ -50,7 +74,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         print("Location updating error: " + error.localizedDescription)
     }
     
-    @IBAction func play(_ sender: AnyObject) {
+    @IBAction func play() {
         timer?.invalidate()
         serverTextField.resignFirstResponder()
         playing = !playing
@@ -60,7 +84,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
             timer?.fire()
         }
         actionButton.setTitle(playing ? "stop" : "start", for: UIControlState())
-        UserDefaults.standard.set(serverTextField.text!, forKey: "url")
+        Defaults[.url] = serverTextField.text
     }
     
     var range = 1
@@ -99,6 +123,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         requestCount = (requestCount + 1) % (range * range)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        pokeManager.updateSettings()
+    }
+    
     func update() {
         pokeManager.tick(location)
         pokemonDisplay.reloadData()
@@ -121,7 +149,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         return "\(near)-\(far)m"
     }
     
-
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PokemonCell = collectionView.dequeueReusableCell(withReuseIdentifier: "pokemonCell", for: indexPath) as! PokemonCell
         let pokemon = pokeManager.orderedPokemons[indexPath.item]
@@ -136,6 +163,13 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         } else {
             cell.timeout.text = "\(pokemon.lifeTimer()/60)'\(pokemon.lifeTimer()%60)\""
         }
+        
+        if pokemon.follow {
+            cell.backgroundColor = UIColor.green
+        } else {
+            cell.backgroundColor = UIColor.clear
+        }
+        
         return cell
     }
     
@@ -145,7 +179,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     }
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
-        print("what")
     }
 }
 

@@ -24,15 +24,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftyUserDefaults.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2F5622F3B18DF497981AB58C6D1FC72F</key>
+		<key>1BFCFFE6F9AA16B0563620B762AF810A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>68C7B1426FDAC275E3CF3C7ABA44DDA1</key>
+		<key>2F5622F3B18DF497981AB58C6D1FC72F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -43,6 +48,11 @@
 			<true/>
 		</dict>
 		<key>9502FB01641FBABB78522037E882757B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C624D68293F50FF11871AB1364230416</key>
 		<dict>
 			<key>primary</key>
 			<true/>
