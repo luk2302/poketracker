@@ -4,6 +4,8 @@ import MapKit
 import AlamofireObjectMapper
 import ObjectMapper
 import SwiftyUserDefaults
+import AudioToolbox
+
 
 class MainViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     
@@ -43,7 +45,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     }
 
     func handleDoublePress(gesture : UITapGestureRecognizer) {
-        print("double press")
         let p = gesture.location(in: self.pokemonDisplay)
         
         if let indexPath = self.pokemonDisplay.indexPathForItem(at: p) {
@@ -54,15 +55,27 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     }
     
     var followingPokemon : Pokemon?
+    var followingDidRecentlyVibrate = false
+    var lookingAtFollowing = false
     func handleLongPress(gesture : UILongPressGestureRecognizer!) {
-        print("long press")
         if gesture.state != .began {
             return
         }
         let p = gesture.location(in: self.pokemonDisplay)
         
         if let indexPath = self.pokemonDisplay.indexPathForItem(at: p) {
-            followingPokemon = pokeManager.orderedPokemons[indexPath.item]
+            let newFollow = pokeManager.orderedPokemons[indexPath.item]
+            if let current = followingPokemon {
+                if current === newFollow {
+                    followingPokemon = nil
+                } else {
+                    followingPokemon = newFollow
+                }
+            } else {
+                followingPokemon = newFollow
+            }
+            followingDidRecentlyVibrate = false
+            lookingAtFollowing = false
             update()
         }
     }
@@ -81,11 +94,66 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location updating error: " + error.localizedDescription)
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        
+        guard let pokemon = followingPokemon else {
+            return
+        }
+        let me = location
+        let mon = pokemon.location
+        let heading = newHeading.trueHeading
+        var bearing = getBearingBetweenTwoPoints1(point1: me, point2: mon)
+        if bearing < 0 {
+            bearing = 360 + bearing
+        }
+        
+        let bearingThreshold = 22.5
+        let relativeBearing = heading - bearing
+        if abs(relativeBearing) < bearingThreshold {
+            if !followingDidRecentlyVibrate {
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                followingDidRecentlyVibrate = true
+            }
+            if !lookingAtFollowing {
+                lookingAtFollowing = true
+                update()
+            }
+        } else {
+            followingDidRecentlyVibrate = false
+            if lookingAtFollowing {
+                lookingAtFollowing = false
+                update()
+            }
+        }
+    }
+    
+    // http://stackoverflow.com/questions/26998029/calculating-bearing-between-two-cllocation-points-in-swift
+    func degreesToRadians(_ degrees: Double) -> Double { return degrees * M_PI / 180.0 }
+    func radiansToDegrees(_ radians: Double) -> Double { return radians * 180.0 / M_PI }
+    func getBearingBetweenTwoPoints1(point1 : CLLocation, point2 : CLLocation) -> Double {
+        
+        let lat1 = degreesToRadians(point1.coordinate.latitude)
+        let lon1 = degreesToRadians(point1.coordinate.longitude)
+        
+        let lat2 = degreesToRadians(point2.coordinate.latitude)
+        let lon2 = degreesToRadians(point2.coordinate.longitude)
+        
+        let dLon = lon2 - lon1
+        
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+        let radiansBearing = atan2(y, x)
+        
+        return radiansToDegrees(radiansBearing)
+    }
+    
     
     @IBAction func play() {
         timer?.invalidate()
@@ -169,7 +237,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         }
         
         if followingPokemon?.id == pokemon.id {
-            cell.backgroundColor = UIColor.green
+            if lookingAtFollowing {
+                cell.backgroundColor = UIColor.green
+            } else {
+                cell.backgroundColor = UIColor.orange
+            }
         } else {
             cell.backgroundColor = UIColor.clear
         }
