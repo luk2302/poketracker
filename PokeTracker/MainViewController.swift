@@ -18,8 +18,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     var firstLocationUpdate = true
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -140,8 +138,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     
     var range = 1
     var requestCount = 0
-    let scanOffsetLat = 0.01
-    let scanOffsetLon = 0.05
+    let scanOffsetLat = 0.025
+    let scanOffsetLon = 0.125
     
     func requestServer() {
         

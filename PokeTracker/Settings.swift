@@ -8,6 +8,7 @@ extension DefaultsKeys {
     static let autoStart = DefaultsKey<Bool>("autoStart")
     static let pokemonCount = DefaultsKey<Int>("pokemonCount")
     static let exclusions = DefaultsKey<[Int]>("exclusions")
+    static let favourites = DefaultsKey<[Int]>("favourites")
     static let url = DefaultsKey<String?>("url")
     static let vibrationThreshold = DefaultsKey<Int>("vibrationThreshold")
     static let vibration = DefaultsKey<Bool>("vibration")
@@ -25,6 +26,7 @@ class SettingViewController : UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet weak var vibrationThreasholdStepper: UIStepper!
     
     var excluded : Set<Int>!
+    var favourites : Set<Int>!
     
     override func viewDidLoad() {
         let layout = exclusionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -43,6 +45,7 @@ class SettingViewController : UIViewController, UICollectionViewDataSource, UICo
         vibrationThresholdLabel.text = "\(Defaults[.vibrationThreshold])"
         autoStartSwitcher.isOn = Defaults[.autoStart]
         excluded = Set(Defaults[.exclusions])
+        favourites = Set(Defaults[.favourites])
         vibrationSwitcher.isOn = Defaults[.vibration]
         serverTextfield.text = Defaults[.url]
     }
@@ -72,6 +75,8 @@ class SettingViewController : UIViewController, UICollectionViewDataSource, UICo
         cell.image.image = Pokemon.sprites[indexPath.row]
         if excluded.contains(indexPath.row + 1) {
             cell.backgroundColor = UIColor.orange
+        } else if favourites.contains(indexPath.row + 1) {
+            cell.backgroundColor = UIColor.green
         } else {
             cell.backgroundColor = UIColor.clear
         }
@@ -81,12 +86,17 @@ class SettingViewController : UIViewController, UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         serverTextfield.resignFirstResponder()
-        if excluded.contains(indexPath.row + 1) {
-            excluded.remove(indexPath.row + 1)
+        let mon = indexPath.row + 1
+        if favourites.contains(mon) {
+            favourites.remove(mon)
+        } else if excluded.contains(mon) {
+            excluded.remove(mon)
+            favourites.insert(mon)
         } else{
-            excluded.insert(indexPath.row + 1)
+            excluded.insert(mon)
         }
         Defaults[.exclusions] = Array(excluded)
+        Defaults[.favourites] = Array(favourites)
         collectionView.reloadData()
     }
     
