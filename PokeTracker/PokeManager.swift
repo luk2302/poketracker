@@ -10,7 +10,7 @@ class PokeManager {
     func submitPokemons(_ newMons : [Pokemon]) {
         print("\(newMons.count) new pokemon")
         newMons.forEach { pokemon in
-            if let alreadyHere = pokemons[pokemon.id], alreadyHere.caught == true {
+            if pokemons[pokemon.id] != nil {
                 return
             }
             pokemons[pokemon.id] = pokemon
@@ -24,8 +24,8 @@ class PokeManager {
         mon.caught = true
     }
     
-    func follow(_ mon : Pokemon) {
-        mon.follow = true
+    func toggleFollow(_ mon : Pokemon) {
+        mon.follow = !mon.follow
     }
     
     fileprivate var exclusions : Set<Int>!
