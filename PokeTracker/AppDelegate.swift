@@ -12,6 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Defaults[.pokemonCount] == 0 {
             Defaults[.pokemonCount] = 251
         }
+        if Defaults[.vibrationThreshold] == 0 {
+            Defaults[.vibrationThreshold] = 40
+        }
         return true
     }
 

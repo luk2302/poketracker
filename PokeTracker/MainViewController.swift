@@ -9,7 +9,6 @@ import AudioToolbox
 
 class MainViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     
-    @IBOutlet weak var serverTextField: UITextField!
     var locationManager : CLLocationManager!
     var location = CLLocation(latitude: 0.0, longitude: 0.0)
     var lastScan = CLLocation(latitude: 0.0, longitude: 0.0)
@@ -27,9 +26,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
 
-        if let str = Defaults[.url] {
-            serverTextField.text = str
-        }
         if Defaults[.autoStart] {
             Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(MainViewController.play), userInfo: nil, repeats: false)
         }
@@ -51,7 +47,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
             pokeManager.caught(pokeManager.orderedPokemons[indexPath.item])
             update()
         }
-
     }
     
     var followingPokemon : Pokemon?
@@ -118,7 +113,9 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         let relativeBearing = heading - bearing
         if abs(relativeBearing) < bearingThreshold {
             if !followingDidRecentlyVibrate {
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                if Defaults[.vibration] {
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                }
                 followingDidRecentlyVibrate = true
             }
             if !lookingAtFollowing {
@@ -132,32 +129,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
                 update()
             }
         }
-    }
-    
-    // http://stackoverflow.com/questions/26998029/calculating-bearing-between-two-cllocation-points-in-swift
-    func degreesToRadians(_ degrees: Double) -> Double { return degrees * M_PI / 180.0 }
-    func radiansToDegrees(_ radians: Double) -> Double { return radians * 180.0 / M_PI }
-    func getBearingBetweenTwoPoints1(point1 : CLLocation, point2 : CLLocation) -> Double {
-        
-        let lat1 = degreesToRadians(point1.coordinate.latitude)
-        let lon1 = degreesToRadians(point1.coordinate.longitude)
-        
-        let lat2 = degreesToRadians(point2.coordinate.latitude)
-        let lon2 = degreesToRadians(point2.coordinate.longitude)
-        
-        let dLon = lon2 - lon1
-        
-        let y = sin(dLon) * cos(lat2)
-        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
-        let radiansBearing = atan2(y, x)
-        
-        return radiansToDegrees(radiansBearing)
-    }
-    
+    }    
     
     @IBAction func play() {
         timer?.invalidate()
-        serverTextField.resignFirstResponder()
         playing = !playing
         if playing {
             print("starting to play")
@@ -165,7 +140,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
             timer?.fire()
         }
         actionButton.setTitle(playing ? "stop" : "start", for: UIControlState())
-        Defaults[.url] = serverTextField.text
     }
     
     var range = 1
@@ -174,6 +148,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     let scanOffsetLon = 0.05
     
     func requestServer() {
+        
+        guard let url = Defaults[.url] else {
+            return
+        }
         
         let xoff = requestCount / range - (range - 1) / 2
         let yoff = requestCount % range - (range - 1) / 2
@@ -191,7 +169,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         let lonS = lon.advanced(by: offsetLon - rangeLon / 2)
         let lonE = lon.advanced(by: offsetLon + rangeLon / 2)
         
-        let server = serverTextField.text! + "/raw_data?pokemon=true&pokestops=false&gyms=false&scanned=false&swLat=\(latS)&swLng=\(lonS)&neLat=\(latE)&neLng=\(lonE)&_=\(now())"
+        let server = url + "/raw_data?pokemon=true&pokestops=false&gyms=false&scanned=false&swLat=\(latS)&swLng=\(lonS)&neLat=\(latE)&neLng=\(lonE)&_=\(now())"
         Alamofire.request(server).responseObject { (response:DataResponse<PokemonResponse>) in
 
             let pokemonResponse = response.result.value

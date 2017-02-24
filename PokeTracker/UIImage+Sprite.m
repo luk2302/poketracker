@@ -51,8 +51,8 @@
     CGImageRef spriteSheet = [image CGImage];
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
-    int width = CGImageGetWidth(spriteSheet);
-    int height = CGImageGetHeight(spriteSheet);
+    int width = (int)CGImageGetWidth(spriteSheet);
+    int height = (int)CGImageGetHeight(spriteSheet);
     
     int maxI = width / size.width;
     
@@ -60,7 +60,7 @@
     int startJ = 0;
     int length = 0;
     
-    int startPosition = range.location;
+    int startPosition = (int)range.location;
     
     // Extracting initial I & J values from range info
     if (startPosition != 0)
