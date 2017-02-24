@@ -6,17 +6,16 @@ import ObjectMapper
 import SwiftyUserDefaults
 import AudioToolbox
 
-
 class MainViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     
     var locationManager : CLLocationManager!
     var location = CLLocation(latitude: 0.0, longitude: 0.0)
-    var lastScan = CLLocation(latitude: 0.0, longitude: 0.0)
     var timer : Timer?
     var playing = false
     @IBOutlet weak var actionButton: UIButton!
     var pokeManager = PokeManager()
     @IBOutlet weak var pokemonDisplay: UICollectionView!
+    var firstLocationUpdate = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +25,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
 
-        if Defaults[.autoStart] {
-            Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(MainViewController.play), userInfo: nil, repeats: false)
-        }
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(MainViewController.handleLongPress))
         lpgr.delegate = self
         lpgr.minimumPressDuration = 0.2
@@ -80,10 +76,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         location = locations.last!
         
         if playing {
-            if location.distance(from: lastScan) > 75 {
-                lastScan = location
-            }
             update()
+        }
+        if firstLocationUpdate && Defaults[.autoStart] {
+            firstLocationUpdate = false
+            play()
         }
     }
     
@@ -135,7 +132,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         timer?.invalidate()
         playing = !playing
         if playing {
-            print("starting to play")
             timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(MainViewController.requestServer), userInfo: nil, repeats: true)
             timer?.fire()
         }
