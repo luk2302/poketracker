@@ -71,9 +71,12 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     
     var postcounter = 0
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.last!
+        let newLocation = locations.last!
         
-        if playing {
+        print("location update")
+        if newLocation.distance(from: location) > 10 {
+            location = newLocation
+            print("updating")
             update()
         }
         if firstLocationUpdate && Defaults[.autoStart] {
@@ -138,8 +141,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     
     var range = 1
     var requestCount = 0
-    let scanOffsetLat = 0.025
-    let scanOffsetLon = 0.125
+    let scanOffsetLat = 0.025 * 2.0
+    let scanOffsetLon = 0.125 * 2.0
     
     func requestServer() {
         
@@ -164,6 +167,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         let lonE = lon.advanced(by: offsetLon + rangeLon / 2)
         
         let server = url + "/raw_data?pokemon=true&pokestops=false&gyms=false&scanned=false&swLat=\(latS)&swLng=\(lonS)&neLat=\(latE)&neLng=\(lonE)&_=\(now())"
+        print("requesting \(server)")
         Alamofire.request(server).responseObject { (response:DataResponse<PokemonResponse>) in
 
             let pokemonResponse = response.result.value
@@ -176,13 +180,30 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         requestCount = (requestCount + 1) % (range * range)
     }
     
+    var updateTimer : Timer?
     override func viewWillAppear(_ animated: Bool) {
         pokeManager.updateSettings()
+        if let updateTimer = updateTimer {
+            updateTimer.invalidate()
+        }
+        updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.updateTimeouts), userInfo: nil, repeats: true)
+        update()
+    }
+    
+    func updateTimeouts() {
+        print("update")
+        pokemonDisplay.reloadItems(at: pokemonDisplay.indexPathsForVisibleItems)
+        pokemonDisplay.indexPathsForVisibleItems.forEach {
+            if let cell = pokemonDisplay.cellForItem(at: $0) as? PokemonCell {
+                cell.updateTimer()
+            }
+        }
     }
     
     func update() {
         pokeManager.tick(location)
         pokemonDisplay.reloadData()
+        print("updated")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -202,11 +223,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         let distance = Int(location.distance(from: pokemon.location))
         
         cell.distance.text = "\(getDistanceDesc3(distance))"
-        if pokemon.lifeTimer() < 60 {
-            cell.timeout.text = "\(pokemon.lifeTimer())\""
-        } else {
-            cell.timeout.text = "\(pokemon.lifeTimer()/60)'\(pokemon.lifeTimer()%60)\""
-        }
+        cell.updateTimer()
         
         if followingPokemon?.id == pokemon.id {
             if lookingAtFollowing {

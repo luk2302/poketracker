@@ -8,4 +8,13 @@ class PokemonCell: UICollectionViewCell {
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var timeout: UILabel!
     var mon : Pokemon!
+    
+    func updateTimer() {
+        let time = mon.lifeTimer()
+        if time < 60 {
+            timeout.text = "<1 min"
+        } else {
+            timeout.text = "~\(time / 60) min"
+        }
+    }
 }
