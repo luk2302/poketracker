@@ -39,7 +39,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         
         if let indexPath = self.pokemonDisplay.indexPathForItem(at: p) {
             pokeManager.caught(pokeManager.orderedPokemons[indexPath.item])
-            update()
+            pokemonDisplay.deleteItems(at: [indexPath])
         }
     }
     
@@ -65,7 +65,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
             }
             followingDidRecentlyVibrate = false
             lookingAtFollowing = false
-            update()
+            updateFollowingColors()
         }
     }
     
@@ -95,7 +95,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        
         guard let pokemon = followingPokemon else {
             return
         }
@@ -118,13 +117,13 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
             }
             if !lookingAtFollowing {
                 lookingAtFollowing = true
-                update()
+                updateFollowingColors()
             }
         } else {
             followingDidRecentlyVibrate = false
             if lookingAtFollowing {
                 lookingAtFollowing = false
-                update()
+                updateFollowingColors()
             }
         }
     }    
@@ -192,17 +191,24 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     
     func updateTimeouts() {
         print("update")
-        pokemonDisplay.reloadItems(at: pokemonDisplay.indexPathsForVisibleItems)
-        pokemonDisplay.indexPathsForVisibleItems.forEach {
-            if let cell = pokemonDisplay.cellForItem(at: $0) as? PokemonCell {
+        DispatchQueue.main.async {
+            self.pokemonDisplay.forEachVisibleCell { (cell : PokemonCell) in
                 cell.updateTimer()
             }
         }
     }
     
+    func updateFollowingColors() {
+        pokemonDisplay.forEachVisibleCell { (cell : PokemonCell) in
+            cell.updateColor(self.lookingAtFollowing, self.followingPokemon)
+        }
+    }
+    
     func update() {
         pokeManager.tick(location)
-        pokemonDisplay.reloadData()
+        DispatchQueue.main.async {
+            self.pokemonDisplay.reloadData()
+        }
         print("updated")
     }
     
@@ -224,16 +230,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         
         cell.distance.text = "\(getDistanceDesc3(distance))"
         cell.updateTimer()
-        
-        if followingPokemon?.id == pokemon.id {
-            if lookingAtFollowing {
-                cell.backgroundColor = UIColor.green
-            } else {
-                cell.backgroundColor = UIColor.orange
-            }
-        } else {
-            cell.backgroundColor = UIColor.clear
-        }
+        cell.updateColor(lookingAtFollowing, followingPokemon)
         
         return cell
     }

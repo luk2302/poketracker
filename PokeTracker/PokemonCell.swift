@@ -17,4 +17,20 @@ class PokemonCell: UICollectionViewCell {
             timeout.text = "~\(time / 60) min"
         }
     }
+    
+    func updateColor(_ lookingAtFollowing : Bool, _ following : Pokemon?) {
+        if let following = following {
+            if following.id == mon.id {
+                if lookingAtFollowing {
+                    backgroundColor = UIColor.green
+                } else {
+                    backgroundColor = UIColor.orange
+                }
+            } else {
+                backgroundColor = UIColor.clear
+            }
+        } else {
+            backgroundColor = UIColor.clear
+        }
+    }
 }

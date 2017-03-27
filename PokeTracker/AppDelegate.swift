@@ -8,12 +8,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         if Defaults[.pokemonCount] == 0 {
             Defaults[.pokemonCount] = 251
         }
         if Defaults[.vibrationThreshold] == 0 {
             Defaults[.vibrationThreshold] = 40
+        }
+        if Defaults[.url] == nil {
+            Defaults[.url] = "http://pokemapmuc.de"
         }
         return true
     }

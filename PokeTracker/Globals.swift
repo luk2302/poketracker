@@ -25,3 +25,13 @@ func getBearingBetweenTwoPoints1(point1 : CLLocation, point2 : CLLocation) -> Do
     
     return radiansToDegrees(radiansBearing)
 }
+
+extension UICollectionView {
+    func forEachVisibleCell<T : UICollectionViewCell>(do function : @escaping ((T) -> Void)) {
+        self.indexPathsForVisibleItems.forEach {
+            if let cell = self.cellForItem(at: $0) as? T {
+                function(cell)
+            }
+        }
+    }
+}
