@@ -22,6 +22,8 @@ class PokeManager {
     
     func caught(_ mon : Pokemon) {
         mon.caught = true
+        orderedPokemons = orderedPokemons.filter { $0.id != mon.id }
+        pokemonCount = orderedPokemons.count
     }
     
     func toggleFollow(_ mon : Pokemon) {
