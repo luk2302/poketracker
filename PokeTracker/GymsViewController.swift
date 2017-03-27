@@ -33,10 +33,9 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        UIView.transition(with: locationButton, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            let image = UIImage(named: (mode == .follow ? "location.png" : "location_off.png"))
-            self.locationButton.setImage(image, for: .normal)
-        }, completion: nil)
+        UIView.animate(withDuration: 0.33) {
+            self.locationButton.alpha = (mode == .follow ? 0 : 1.0)
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
