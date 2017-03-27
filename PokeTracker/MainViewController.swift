@@ -12,7 +12,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     var location = CLLocation(latitude: 0.0, longitude: 0.0)
     var timer : Timer?
     var playing = false
-    @IBOutlet weak var actionButton: UIButton!
     var pokeManager = PokeManager()
     @IBOutlet weak var pokemonDisplay: UICollectionView!
     var firstLocationUpdate = true
@@ -40,6 +39,15 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         if let indexPath = self.pokemonDisplay.indexPathForItem(at: p) {
             pokeManager.caught(pokeManager.orderedPokemons[indexPath.item])
             pokemonDisplay.deleteItems(at: [indexPath])
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
+        if let timer = updateTimer {
+            timer.invalidate()
+            updateTimer = nil
         }
     }
     
@@ -135,48 +143,13 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
             timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(MainViewController.requestServer), userInfo: nil, repeats: true)
             timer?.fire()
         }
-        actionButton.setTitle(playing ? "stop" : "start", for: UIControlState())
     }
     
-    var range = 1
-    var requestCount = 0
-    let scanOffsetLat = 0.025 * 2.0
-    let scanOffsetLon = 0.125 * 2.0
-    
     func requestServer() {
-        
-        guard let url = Defaults[.url] else {
-            return
-        }
-        
-        let xoff = requestCount / range - (range - 1) / 2
-        let yoff = requestCount % range - (range - 1) / 2
-        
-        
-        let lat = location.coordinate.latitude
-        let lon = location.coordinate.longitude
-        let offsetLat = Double(xoff) * scanOffsetLat // negative is down, positive is up
-        let offsetLon = Double(yoff) * scanOffsetLon // negative is left, positive is right
-        let rangeLat = scanOffsetLat
-        let rangeLon = scanOffsetLon
-        
-        let latS = lat.advanced(by: offsetLat - rangeLat / 2)
-        let latE = lat.advanced(by: offsetLat + rangeLat / 2)
-        let lonS = lon.advanced(by: offsetLon - rangeLon / 2)
-        let lonE = lon.advanced(by: offsetLon + rangeLon / 2)
-        
-        let server = url + "/raw_data?pokemon=true&pokestops=false&gyms=false&scanned=false&swLat=\(latS)&swLng=\(lonS)&neLat=\(latE)&neLng=\(lonE)&_=\(now())"
-        print("requesting \(server)")
-        Alamofire.request(server).responseObject { (response:DataResponse<PokemonResponse>) in
-
-            let pokemonResponse = response.result.value
-            
-            if let pokemonResponse = pokemonResponse {
-                self.pokeManager.submitPokemons(pokemonResponse.pokemons)
-            }
+        Networker.requestPokemons(location: location) {
+            self.pokeManager.submitPokemons($0.pokemons)
             self.update()
         }
-        requestCount = (requestCount + 1) % (range * range)
     }
     
     var updateTimer : Timer?
@@ -187,6 +160,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         }
         updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.updateTimeouts), userInfo: nil, repeats: true)
         update()
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
     
     func updateTimeouts() {
@@ -233,9 +208,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         cell.updateColor(lookingAtFollowing, followingPokemon)
         
         return cell
-    }
-    
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
     }
 }
 

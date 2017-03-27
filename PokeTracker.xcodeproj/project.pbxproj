@@ -18,6 +18,12 @@
 		42A7C95C1D4FC0CD005842FD /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C95B1D4FC0CD005842FD /* Pokemon.swift */; };
 		42C9AF2A1D4FDD58000F1821 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C9AF291D4FDD58000F1821 /* Globals.swift */; };
 		42C9AF2C1D4FE084000F1821 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C9AF2B1D4FE084000F1821 /* PokemonCell.swift */; };
+		42CC67FF1E89675800E75999 /* GymsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC67FE1E89675800E75999 /* GymsViewController.swift */; };
+		42CC68031E8969AA00E75999 /* location_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CC68011E8969AA00E75999 /* location_off.png */; };
+		42CC68041E8969AA00E75999 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CC68021E8969AA00E75999 /* location.png */; };
+		42CC68061E896A6F00E75999 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CC68051E896A6F00E75999 /* refresh.png */; };
+		42CC68081E896D8600E75999 /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC68071E896D8600E75999 /* Networker.swift */; };
+		42CC680A1E89718200E75999 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC68091E89718200E75999 /* Gym.swift */; };
 		42D291E21E5B7369004BC630 /* mons.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D291E11E5B7369004BC630 /* mons.png */; };
 		42D291E41E5B7C44004BC630 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D291E31E5B7C44004BC630 /* Settings.swift */; };
 		F81606007701E72AA33A834C /* Pods_PokeTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E947F169390E9AD6E7189645 /* Pods_PokeTracker.framework */; };
@@ -39,6 +45,12 @@
 		42A7C95B1D4FC0CD005842FD /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		42C9AF291D4FDD58000F1821 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		42C9AF2B1D4FE084000F1821 /* PokemonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
+		42CC67FE1E89675800E75999 /* GymsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymsViewController.swift; sourceTree = "<group>"; };
+		42CC68011E8969AA00E75999 /* location_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_off.png; sourceTree = "<group>"; };
+		42CC68021E8969AA00E75999 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		42CC68051E896A6F00E75999 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		42CC68071E896D8600E75999 /* Networker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
+		42CC68091E89718200E75999 /* Gym.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		42D291E11E5B7369004BC630 /* mons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mons.png; sourceTree = "<group>"; };
 		42D291E31E5B7C44004BC630 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C8C6097B890E538DD5C8AA3C /* Pods-PokeTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PokeTracker/Pods-PokeTracker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +102,7 @@
 		42A7C9461D4FAEFE005842FD /* PokeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				42CC68001E89699B00E75999 /* images */,
 				4297D4B61E5BA07800BEC489 /* UIImage+Sprite.h */,
 				4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */,
 				42A7C9471D4FAEFE005842FD /* AppDelegate.swift */,
@@ -105,8 +118,21 @@
 				42C9AF2B1D4FE084000F1821 /* PokemonCell.swift */,
 				42D291E31E5B7C44004BC630 /* Settings.swift */,
 				4297D4B31E5B9FF300BEC489 /* PokeTracker-Bridging-Header.h */,
+				42CC67FE1E89675800E75999 /* GymsViewController.swift */,
+				42CC68071E896D8600E75999 /* Networker.swift */,
+				42CC68091E89718200E75999 /* Gym.swift */,
 			);
 			path = PokeTracker;
+			sourceTree = "<group>";
+		};
+		42CC68001E89699B00E75999 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				42CC68051E896A6F00E75999 /* refresh.png */,
+				42CC68011E8969AA00E75999 /* location_off.png */,
+				42CC68021E8969AA00E75999 /* location.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 		4DD2238FBC12CD99F6F4E8A4 /* Frameworks */ = {
@@ -182,7 +208,10 @@
 			files = (
 				42A7C9521D4FAEFE005842FD /* LaunchScreen.storyboard in Resources */,
 				42A7C94F1D4FAEFE005842FD /* Assets.xcassets in Resources */,
+				42CC68031E8969AA00E75999 /* location_off.png in Resources */,
+				42CC68061E896A6F00E75999 /* refresh.png in Resources */,
 				42D291E21E5B7369004BC630 /* mons.png in Resources */,
+				42CC68041E8969AA00E75999 /* location.png in Resources */,
 				42A7C94D1D4FAEFE005842FD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,12 +271,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42CC680A1E89718200E75999 /* Gym.swift in Sources */,
 				42A7C94A1D4FAEFE005842FD /* MainViewController.swift in Sources */,
 				42A7C9481D4FAEFE005842FD /* AppDelegate.swift in Sources */,
 				4298833E1D4FD8F600AB7125 /* PokeManager.swift in Sources */,
 				42C9AF2A1D4FDD58000F1821 /* Globals.swift in Sources */,
 				42D291E41E5B7C44004BC630 /* Settings.swift in Sources */,
+				42CC68081E896D8600E75999 /* Networker.swift in Sources */,
 				42A7C95C1D4FC0CD005842FD /* Pokemon.swift in Sources */,
+				42CC67FF1E89675800E75999 /* GymsViewController.swift in Sources */,
 				4297D4B81E5BA07800BEC489 /* UIImage+Sprite.m in Sources */,
 				42C9AF2C1D4FE084000F1821 /* PokemonCell.swift in Sources */,
 			);

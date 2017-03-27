@@ -31,14 +31,6 @@ class SettingViewController : UIViewController, UICollectionViewDataSource, UICo
     override func viewDidLoad() {
         let layout = exclusionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
-    }
-    
-    @IBAction func vibrationThresholdChanged(_ sender: UIStepper) {
-        serverTextfield.resignFirstResponder()
-        Defaults[.vibrationThreshold] = Int(vibrationThreasholdStepper.value)
-        vibrationThresholdLabel.text = "\(Defaults[.vibrationThreshold])"
-    }
-    override func viewWillAppear(_ animated: Bool) {
         pokemonCountStepper.value = Double(Defaults[.pokemonCount])
         pokemonCountLabel.text = "\(Defaults[.pokemonCount])"
         vibrationThreasholdStepper.value = Double(Defaults[.vibrationThreshold])
@@ -48,6 +40,12 @@ class SettingViewController : UIViewController, UICollectionViewDataSource, UICo
         favourites = Set(Defaults[.favourites])
         vibrationSwitcher.isOn = Defaults[.vibration]
         serverTextfield.text = Defaults[.url]
+    }
+    
+    @IBAction func vibrationThresholdChanged(_ sender: UIStepper) {
+        serverTextfield.resignFirstResponder()
+        Defaults[.vibrationThreshold] = Int(vibrationThreasholdStepper.value)
+        vibrationThresholdLabel.text = "\(Defaults[.vibrationThreshold])"
     }
     @IBAction func vibrationToggleChanged() {
         serverTextfield.resignFirstResponder()

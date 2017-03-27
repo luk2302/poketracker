@@ -2,7 +2,7 @@ import Foundation
 import ObjectMapper
 import CoreLocation
 
-class Pokemon: Mappable {
+class Pokemon : Mappable {
     static let sprites = UIImage.sprites(withSpriteSheetImage: UIImage(named:"mons.png")!, spriteSize: CGSize(width: 80.0, height: 80.0)) as! [UIImage]
     var disappearTime : Int
     var pokemonId : Int
