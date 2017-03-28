@@ -173,13 +173,13 @@
                     <tabBarItem key="tabBarItem" title="Gyms" image="gym_offs.png" selectedImage="gym_ons.png" id="Dy0-gg-MCf"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="instinctColor">
-                            <color key="value" red="1" green="0.81367486715316772" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="1" green="0.81367486715316772" blue="0.0" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="valorColor">
-                            <color key="value" red="0.9678683876991272" green="0.0" blue="0.016131139794985396" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.9678683876991272" green="0.0" blue="0.016131139794985396" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="mysticColor">
-                            <color key="value" red="0.0" green="0.46943295001983643" blue="0.94323271512985229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.0" green="0.46943295001983643" blue="0.94323271512985229" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
