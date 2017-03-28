@@ -106,7 +106,7 @@
                             <constraint firstItem="Jfn-bt-zkU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gd2-y5-qrt"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Tracker" id="7Pw-FM-vJI"/>
+                    <tabBarItem key="tabBarItem" title="Tracker" image="ball_off.png" selectedImage="ball_on.png" id="7Pw-FM-vJI"/>
                     <toolbarItems/>
                     <connections>
                         <outlet property="pokemonDisplay" destination="Jfn-bt-zkU" id="10c-4g-zEM"/>
@@ -116,7 +116,7 @@
             </objects>
             <point key="canvasLocation" x="1350" y="70"/>
         </scene>
-        <!--GymMap-->
+        <!--Gyms-->
         <scene sceneID="rBa-Z8-fS3">
             <objects>
                 <viewController id="HDC-WX-hzB" customClass="GymsViewController" customModule="PokeTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -170,7 +170,18 @@
                             <constraint firstAttribute="trailing" secondItem="DxT-qP-UxY" secondAttribute="trailing" id="yu8-oh-nUd"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="GymMap" id="Dy0-gg-MCf"/>
+                    <tabBarItem key="tabBarItem" title="Gyms" image="gym_offs.png" selectedImage="gym_ons.png" id="Dy0-gg-MCf"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="instinctColor">
+                            <color key="value" red="1" green="0.81367486715316772" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="valorColor">
+                            <color key="value" red="0.9678683876991272" green="0.0" blue="0.016131139794985396" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="mysticColor">
+                            <color key="value" red="0.0" green="0.46943295001983643" blue="0.94323271512985229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="locationButton" destination="Tej-Rz-Fc0" id="N0r-wW-M1a"/>
                         <outlet property="mapView" destination="DxT-qP-UxY" id="ehp-Xw-NCA"/>
@@ -412,7 +423,7 @@
                             <constraint firstItem="irA-bd-XIn" firstAttribute="top" secondItem="DbQ-xq-LzN" secondAttribute="top" constant="8" id="ycl-o4-9W2"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="FI7-kP-El2"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings_off.png" selectedImage="settings_on.png" id="FI7-kP-El2"/>
                     <connections>
                         <outlet property="autoStartSwitcher" destination="4Dn-ir-UeY" id="gPK-Ih-uph"/>
                         <outlet property="exclusionView" destination="LCM-mp-qgR" id="iy6-Tk-xQV"/>
@@ -434,6 +445,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Iih-2r-Fox" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="KnK-73-EKu">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -449,7 +461,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ball_off.png" width="32" height="32"/>
+        <image name="ball_on.png" width="32" height="32"/>
+        <image name="gym_offs.png" width="32" height="32"/>
+        <image name="gym_ons.png" width="32" height="32"/>
         <image name="location.png" width="128" height="128"/>
         <image name="refresh.png" width="128" height="128"/>
+        <image name="settings_off.png" width="32" height="32"/>
+        <image name="settings_on.png" width="32" height="32"/>
     </resources>
 </document>

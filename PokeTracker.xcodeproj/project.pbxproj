@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4215182D1E8A7C06001D6A37 /* settings_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4215182B1E8A7C06001D6A37 /* settings_on@2x.png */; };
+		4215182E1E8A7C06001D6A37 /* settings_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4215182C1E8A7C06001D6A37 /* settings_off@2x.png */; };
+		421518351E8A7F44001D6A37 /* ball_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 421518331E8A7F44001D6A37 /* ball_on@2x.png */; };
+		421518361E8A7F44001D6A37 /* ball_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 421518341E8A7F44001D6A37 /* ball_off@2x.png */; };
+		4215183C1E8A82F0001D6A37 /* gym_ons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4215183B1E8A82F0001D6A37 /* gym_ons@2x.png */; };
+		4215183E1E8A83CE001D6A37 /* gym_offs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4215183D1E8A83CE001D6A37 /* gym_offs@2x.png */; };
 		4297D4B81E5BA07800BEC489 /* UIImage+Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */; };
 		4298833E1D4FD8F600AB7125 /* PokeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4298833D1D4FD8F600AB7125 /* PokeManager.swift */; };
 		42A7C9481D4FAEFE005842FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C9471D4FAEFE005842FD /* AppDelegate.swift */; };
@@ -30,6 +36,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4215182B1E8A7C06001D6A37 /* settings_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_on@2x.png"; sourceTree = "<group>"; };
+		4215182C1E8A7C06001D6A37 /* settings_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_off@2x.png"; sourceTree = "<group>"; };
+		421518331E8A7F44001D6A37 /* ball_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ball_on@2x.png"; sourceTree = "<group>"; };
+		421518341E8A7F44001D6A37 /* ball_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ball_off@2x.png"; sourceTree = "<group>"; };
+		4215183B1E8A82F0001D6A37 /* gym_ons@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gym_ons@2x.png"; sourceTree = "<group>"; };
+		4215183D1E8A83CE001D6A37 /* gym_offs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gym_offs@2x.png"; sourceTree = "<group>"; };
 		4297D4B31E5B9FF300BEC489 /* PokeTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PokeTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		4297D4B61E5BA07800BEC489 /* UIImage+Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Sprite.h"; sourceTree = "<group>"; };
 		4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Sprite.m"; sourceTree = "<group>"; };
@@ -128,6 +140,12 @@
 		42CC68001E89699B00E75999 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4215183B1E8A82F0001D6A37 /* gym_ons@2x.png */,
+				4215183D1E8A83CE001D6A37 /* gym_offs@2x.png */,
+				421518331E8A7F44001D6A37 /* ball_on@2x.png */,
+				421518341E8A7F44001D6A37 /* ball_off@2x.png */,
+				4215182B1E8A7C06001D6A37 /* settings_on@2x.png */,
+				4215182C1E8A7C06001D6A37 /* settings_off@2x.png */,
 				42CC68051E896A6F00E75999 /* refresh.png */,
 				42CC68011E8969AA00E75999 /* location_off.png */,
 				42CC68021E8969AA00E75999 /* location.png */,
@@ -206,13 +224,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4215182E1E8A7C06001D6A37 /* settings_off@2x.png in Resources */,
 				42A7C9521D4FAEFE005842FD /* LaunchScreen.storyboard in Resources */,
 				42A7C94F1D4FAEFE005842FD /* Assets.xcassets in Resources */,
 				42CC68031E8969AA00E75999 /* location_off.png in Resources */,
 				42CC68061E896A6F00E75999 /* refresh.png in Resources */,
 				42D291E21E5B7369004BC630 /* mons.png in Resources */,
+				421518351E8A7F44001D6A37 /* ball_on@2x.png in Resources */,
 				42CC68041E8969AA00E75999 /* location.png in Resources */,
+				4215183E1E8A83CE001D6A37 /* gym_offs@2x.png in Resources */,
 				42A7C94D1D4FAEFE005842FD /* Main.storyboard in Resources */,
+				4215183C1E8A82F0001D6A37 /* gym_ons@2x.png in Resources */,
+				421518361E8A7F44001D6A37 /* ball_off@2x.png in Resources */,
+				4215182D1E8A7C06001D6A37 /* settings_on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

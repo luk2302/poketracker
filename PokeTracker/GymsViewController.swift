@@ -5,6 +5,9 @@ import MapKit
 class GymsViewController : UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationButton: UIButton!
+    @IBInspectable var instinctColor: UIColor!
+    @IBInspectable var valorColor: UIColor!
+    @IBInspectable var mysticColor: UIColor!
     
     override func viewDidLoad() {
         centerMapOnUserButtonClicked()
@@ -59,15 +62,15 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
                 annotationView?.team.backgroundColor = .lightGray
                 annotationView?.label.textColor = .black
             case 1:
-                annotationView?.team.backgroundColor = .blue
+                annotationView?.team.backgroundColor = mysticColor
                 annotationView?.label.textColor = .white
                 annotationView?.progress.strokeColor = UIColor.black.cgColor
             case 2:
-                annotationView?.team.backgroundColor = .red
+                annotationView?.team.backgroundColor = valorColor
                 annotationView?.label.textColor = .white
                 annotationView?.progress.strokeColor = UIColor.black.cgColor
             case 3:
-                annotationView?.team.backgroundColor = .yellow
+                annotationView?.team.backgroundColor = instinctColor
                 annotationView?.label.textColor = .black
                 annotationView?.progress.strokeColor = UIColor.black.cgColor
             default: break
