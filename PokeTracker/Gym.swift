@@ -19,13 +19,12 @@ class Gym : Mappable {
     }
     var level : Int {
         get {
-            let level = Gym.prestigeLevels.index { $0 >= prestige }
+            let level = Gym.prestigeLevels.index { $0 > prestige }
             if let level = level {
-                return Gym.prestigeLevels.startIndex.distance(to: level)
+                return level.littleEndian
             } else {
                 return 10
             }
-            
         }
     }
     var progress : Double {
@@ -43,7 +42,6 @@ class Gym : Mappable {
             } else {
                 return 0
             }
-            
         }
     }
 
