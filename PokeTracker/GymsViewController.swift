@@ -1,25 +1,54 @@
 
 import Foundation
 import MapKit
+import SwiftyUserDefaults
 
 class GymsViewController : UIViewController, MKMapViewDelegate {
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var refreshButton: UIButton!
+    
     @IBInspectable var instinctColor: UIColor!
     @IBInspectable var valorColor: UIColor!
     @IBInspectable var mysticColor: UIColor!
     
+    var myGyms = Set<String>()
+    
     override func viewDidLoad() {
         centerMapOnUserButtonClicked()
+        myGyms = Set(Defaults[.myGyms])
         refreshData()
     }
     
     @IBAction func centerMapOnUserButtonClicked() {
         self.mapView.setUserTrackingMode(.follow, animated: true)
     }
+    
+    class Rotation {
+        var stop : Bool = false
+        var count : Int = 0
+        func shouldStop() -> Bool {
+            return stop && count % 2 == 0
+        }
+    }
+    func rotateButton(_ rotationData : Rotation = Rotation()) -> Rotation {
+        UIView.animate(withDuration: 0.35, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+            self.refreshButton.transform = self.refreshButton.transform.rotated(by: CGFloat.pi * 1)
+            rotationData.count = rotationData.count + 1
+        }, completion: {_ in
+            if !rotationData.shouldStop() {
+                let _ = self.rotateButton(rotationData)
+            }
+        })
+        return rotationData
+    }
 
     @IBAction func refreshData() {
+        print("refreshing gym data")
         if let location = self.mapView.userLocation.location {
+            let rotation = rotateButton()
+            
             Networker.requestGyms(location: location) {
                 let gyms = $0.gyms.values
                 self.mapView.removeAnnotations(self.mapView.annotations)
@@ -29,6 +58,7 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
                     annotation.coordinate = $0.location.coordinate
                     self.mapView.addAnnotation(annotation)
                 }
+                rotation.stop = true
             }
         } else {
             self.perform(#selector(GymsViewController.refreshData), with: nil, afterDelay: 1.0)
@@ -38,6 +68,21 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         UIView.animate(withDuration: 0.33) {
             self.locationButton.alpha = (mode == .follow ? 0 : 1.0)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: false)
+        if let annotation = view.annotation as? CustomPointAnnotation {
+            let id = annotation.gym.id
+            if myGyms.contains(id!) {
+                myGyms.remove(id!)
+                (view as! CustomAnnotationView).favourite(false)
+            } else {
+                myGyms.insert(id!)
+                (view as! CustomAnnotationView).favourite(true)
+            }
+            Defaults[.myGyms] = Array(myGyms)
         }
     }
     
@@ -54,6 +99,8 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
         } else {
             annotationView!.annotation = annotation
         }
+        
+        annotationView?.favourite(myGyms.contains(annotation.gym.id))
         
         annotationView?.progress.strokeEnd = CGFloat(annotation.gym.progress)
         annotationView?.label.text = "\(annotation.gym.level)"
@@ -97,7 +144,7 @@ class CustomAnnotationView : MKAnnotationView {
         label.textAlignment = .center
         label.frame = CGRect(x: -size, y: -size, width: size * 2, height: size * 2)
         progress = CAShapeLayer()
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: size, y: size), radius: CGFloat(size), startAngle: CGFloat(-0.5 * M_PI), endAngle: CGFloat(1.5 * M_PI), clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: size, y: size), radius: CGFloat(size), startAngle: -0.5 * CGFloat.pi, endAngle: 1.5 * CGFloat.pi, clockwise: true)
         progress.path = circlePath.cgPath
         progress.fillColor = UIColor.clear.cgColor
         progress.lineWidth = 3
@@ -108,6 +155,19 @@ class CustomAnnotationView : MKAnnotationView {
         addSubview(team)
         addSubview(label)
         team.layer.addSublayer(progress)
+    }
+    
+    func favourite(_ fav : Bool) {
+        if fav {
+            label.font = UIFont.boldSystemFont(ofSize: 18)
+            team.layer.shadowOpacity = 1
+            team.layer.shadowRadius = 8
+            team.layer.shadowColor = UIColor.black.cgColor
+            team.layer.shadowOffset = CGSize.zero
+        } else {
+            label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+            team.layer.shadowOpacity = 0
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

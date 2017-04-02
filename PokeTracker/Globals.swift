@@ -7,8 +7,8 @@ func now() -> Int {
 }
 
 // http://stackoverflow.com/questions/26998029/calculating-bearing-between-two-cllocation-points-in-swift
-func degreesToRadians(_ degrees: Double) -> Double { return degrees * M_PI / 180.0 }
-func radiansToDegrees(_ radians: Double) -> Double { return radians * 180.0 / M_PI }
+func degreesToRadians(_ degrees: Double) -> Double { return degrees * .pi / 180.0 }
+func radiansToDegrees(_ radians: Double) -> Double { return radians * 180.0 / .pi }
 func getBearingBetweenTwoPoints1(point1 : CLLocation, point2 : CLLocation) -> Double {
     
     let lat1 = degreesToRadians(point1.coordinate.latitude)

@@ -153,7 +153,7 @@
                                 </constraints>
                                 <state key="normal" image="refresh.png"/>
                                 <connections>
-                                    <action selector="refreshData" destination="HDC-WX-hzB" eventType="touchUpOutside" id="36G-UF-7qS"/>
+                                    <action selector="refreshData" destination="HDC-WX-hzB" eventType="touchUpInside" id="gWZ-hc-q1V"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -185,6 +185,7 @@
                     <connections>
                         <outlet property="locationButton" destination="Tej-Rz-Fc0" id="N0r-wW-M1a"/>
                         <outlet property="mapView" destination="DxT-qP-UxY" id="ehp-Xw-NCA"/>
+                        <outlet property="refreshButton" destination="x8X-Ae-1j0" id="npB-9E-13t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ha5-R3-rMD" userLabel="First Responder" sceneMemberID="firstResponder"/>

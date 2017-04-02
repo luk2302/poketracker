@@ -12,6 +12,7 @@ extension DefaultsKeys {
     static let url = DefaultsKey<String?>("url")
     static let vibrationThreshold = DefaultsKey<Int>("vibrationThreshold")
     static let vibration = DefaultsKey<Bool>("vibration")
+    static let myGyms = DefaultsKey<[String]>("myGyms")
 }
 
 class SettingViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
