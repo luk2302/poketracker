@@ -30,7 +30,7 @@ Ziel ist es, eine Möglichkeit zu haben, die erreichbaren Pokemons in direkter U
 
 ## FAQ
 * Wieso gibt's die App nicht im AppStore? 
-  * Weil ich mir die Mühe nicht machen wollte. Ich denke, dass ich dann mich mehr um Lizenzen und so weiter kümmern müsste.
+  * Weil ich mir die Mühe nicht machen wollte. Ich denke, dass ich dann mich mehr um Lizenzen und so weiter kümmern müsste. Wenn genug Interesse besteht lass ich mich vielleicht umstimmen
 * Mir werden keine Pokemon und Gyms angezeigt! 
   * Bitte einmal checken, ob die zugrundeliegende Map, also bspw. pokemapmuc gerade, gerade nicht erreichbar ist. Gerne mich kontaktieren falls die Map funktioniert, die App allerdings nicht
 
