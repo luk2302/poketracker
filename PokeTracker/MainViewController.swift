@@ -39,6 +39,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         if let indexPath = self.pokemonDisplay.indexPathForItem(at: p) {
             pokeManager.caught(pokeManager.orderedPokemons[indexPath.item])
             pokemonDisplay.deleteItems(at: [indexPath])
+            UIButton().contentHorizontalAlignment = .left
         }
     }
     
@@ -165,7 +166,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
     }
     
     func updateTimeouts() {
-        print("update")
         DispatchQueue.main.async {
             self.pokemonDisplay.forEachVisibleCell { (cell : PokemonCell) in
                 cell.updateTimer()
@@ -184,11 +184,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, UICollect
         DispatchQueue.main.async {
             self.pokemonDisplay.reloadData()
         }
-        print("updated")
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pokeManager.pokemonCount
+        print("reloaded")
+        return pokeManager.orderedPokemons.count
     }
     
     func getDistanceDesc3(_ distance : Int) -> String {

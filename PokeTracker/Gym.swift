@@ -3,15 +3,41 @@ import Foundation
 import ObjectMapper
 import CoreLocation
 
+class Raid : Mappable {
+    var cp : Int!
+    var start : Int!
+    var spawn : Int!
+    var end : Int!
+    var pokemon : Int!
+    var level : Int!
+    
+    required init?(map: Map) {}
+    
+    func mapping(map: Map) {
+        cp            <- map["cp"]
+        end           <- map["end"]
+        spawn         <- map["spawn"]
+        start         <- map["start"]
+        pokemon       <- map["pokemon_id"]
+        level         <- map["level"]
+    }
+    
+    func isOngoing() -> Bool {
+        let n = now()
+        return n > start && n < end
+    }
+}
 
 class Gym : Mappable {
-    static let prestigeLevels = [0, 2000, 4000, 8000, 12000, 16000, 20000, 30000, 40000, 50000]
     var enabled : Bool!
     var id : String!
-    var prestige : Int!
     fileprivate var lat : Double!
     fileprivate var lon : Double!
     var team : Int!
+    var totalCP : Int!
+    var raid : Raid!
+    var availableSlots : Int!
+    
     var location : CLLocation {
         get {
             return CLLocation(latitude: lat, longitude: lon)
@@ -19,29 +45,22 @@ class Gym : Mappable {
     }
     var level : Int {
         get {
-            let level = Gym.prestigeLevels.index { $0 > prestige }
-            if let level = level {
-                return level.littleEndian
-            } else {
-                return 10
-            }
+            return 6 - availableSlots
         }
     }
     var progress : Double {
         get {
-            let nextLevel = Gym.prestigeLevels.index { $0 > prestige }
-            if let nextLevel = nextLevel {
-                if nextLevel == Gym.prestigeLevels.startIndex {
-                    return 0
-                }
-                let nextPrestige = Gym.prestigeLevels[nextLevel]
-                let lastPrestige = Gym.prestigeLevels[nextLevel.advanced(by: -1)]
-                let overPrestige = prestige - lastPrestige
-                let prestigeNeeded = nextPrestige - lastPrestige
-                return Double(overPrestige) / Double(prestigeNeeded)
-            } else {
-                return 0
+            guard hasRaid else { return 0 }
+            let n = now()
+            if raid.isOngoing() {
+                return Double((n - raid.start)) / Double((raid.end - raid.start))
             }
+            return Double((n - raid.spawn)) / Double((raid.start - raid.spawn))
+        }
+    }
+    var hasRaid : Bool {
+        get {
+            return raid != nil && raid.end != 0 && raid.start != 0 && raid.spawn != 0 && raid.end > now()
         }
     }
 
@@ -52,8 +71,11 @@ class Gym : Mappable {
         lon             <- map["longitude"]
         id              <- map["gym_id"]
         enabled         <- map["enabled"]
-        prestige        <- map["gym_points"]
+        availableSlots  <- map["slots_available"]
         team            <- map["team_id"]
+        totalCP         <- map["total_cp"]
+        raid            <- map["raid"]
+        
     }
 }
 

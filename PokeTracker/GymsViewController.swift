@@ -43,7 +43,7 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
         })
         return rotationData
     }
-
+    
     @IBAction func refreshData() {
         print("refreshing gym data")
         if let location = self.mapView.userLocation.location {
@@ -90,6 +90,7 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
         if annotation is MKUserLocation {
             return nil
         }
+        // split annotation views, different display kinds of annotations for ongoing raid, spawning raid or regular gym
         let reuseIdentifier = "gym"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? CustomAnnotationView
         let annotation = annotation as! CustomPointAnnotation
@@ -104,7 +105,31 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
         
         annotationView?.progress.strokeEnd = CGFloat(annotation.gym.progress)
         annotationView?.label.text = "\(annotation.gym.level)"
-        switch annotation.gym.team {
+        let gym = annotation.gym!
+        if gym.hasRaid {
+            let raid = gym.raid!
+            annotationView?.label.text = "\(raid.level!)"
+            if raid.isOngoing() {
+                annotationView?.team.backgroundColor = UIColor(red: 0, green: 0.4, blue: 0, alpha: 1)
+                annotationView?.label.textColor = .white
+                annotationView?.progress.strokeColor = UIColor.green.cgColor
+                annotationView?.imageView.isHidden = false
+                if raid.pokemon != nil {
+                    annotationView?.imageView.image = Pokemon.sprites[raid.pokemon - 1]
+                }
+                annotationView?.label.isHidden = true
+            } else {
+                annotationView?.imageView.isHidden = true
+                annotationView?.label.isHidden = false
+                annotationView?.team.backgroundColor = .orange
+                annotationView?.label.textColor = .black
+                annotationView?.progress.strokeColor = UIColor.yellow.cgColor
+            }
+        } else {
+            annotationView?.imageView.isHidden = true
+            annotationView?.label.isHidden = false
+            annotationView?.label.text = "\(annotation.gym.level)"
+            switch gym.team {
             case 0:
                 annotationView?.team.backgroundColor = .lightGray
                 annotationView?.label.textColor = .black
@@ -121,6 +146,7 @@ class GymsViewController : UIViewController, MKMapViewDelegate {
                 annotationView?.label.textColor = .black
                 annotationView?.progress.strokeColor = UIColor.black.cgColor
             default: break
+            }
         }
         
         return annotationView
@@ -134,6 +160,7 @@ class CustomPointAnnotation: MKPointAnnotation {
 class CustomAnnotationView : MKAnnotationView {
     let label : UILabel
     let team : UIView
+    let imageView : UIImageView
     var progress : CAShapeLayer
     let size = 15
     
@@ -150,10 +177,14 @@ class CustomAnnotationView : MKAnnotationView {
         progress.lineWidth = 3
         progress.strokeStart = 0
         
+        imageView = UIImageView(frame: label.frame)
+        
+        
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         addSubview(team)
         addSubview(label)
+        addSubview(imageView)
         team.layer.addSublayer(progress)
     }
     

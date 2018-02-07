@@ -3,7 +3,7 @@ import ObjectMapper
 import CoreLocation
 
 class Pokemon : Mappable {
-    static let sprites = UIImage.sprites(withSpriteSheetImage: UIImage(named:"mons.png")!, spriteSize: CGSize(width: 80.0, height: 80.0)) as! [UIImage]
+    static let sprites = UIImage.sprites(withSpriteSheetImage: UIImage(data: try! Data(contentsOf: URL(string: "https://www.pokemapmuc.de/static/icons-sprite-new-xl.png")!)), spriteSize: CGSize(width: 80.0, height: 80.0)) as! [UIImage]
     var disappearTime : Int
     var pokemonId : Int
     var pokemonName : String
@@ -12,6 +12,7 @@ class Pokemon : Mappable {
     var id : String
     var caught = false
     var follow = false
+    
     var location : CLLocation {
         get {
             return CLLocation(latitude: lat, longitude: lon)
@@ -49,9 +50,7 @@ class Pokemon : Mappable {
 class PokemonResponse : Mappable {
     var pokemons : [Pokemon]!
     
-    required init?(map: Map) {
-        
-    }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         pokemons   <- map["pokemons"]

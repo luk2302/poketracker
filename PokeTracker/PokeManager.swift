@@ -16,14 +16,12 @@ class PokeManager {
             pokemons[pokemon.id] = pokemon
         }
     }
-    var pokemonCount = 0
     
     var orderedPokemons = [Pokemon]()
     
     func caught(_ mon : Pokemon) {
         mon.caught = true
         orderedPokemons = orderedPokemons.filter { $0.id != mon.id }
-        pokemonCount = orderedPokemons.count
     }
     
     func toggleFollow(_ mon : Pokemon) {
@@ -44,11 +42,12 @@ class PokeManager {
             pokemons.removeValue(forKey: $0.id)
         }
         orderedPokemons = getOrderedList(location).filter { !exclusions.contains($0.pokemonId) }
-        pokemonCount = orderedPokemons.count
+        
     }
     
     fileprivate func getOrderedList(_ location : CLLocation) -> [Pokemon] {
-        return pokemons.values.filter { !$0.caught } .sorted {
+        let filtered = pokemons.values.filter { !$0.caught }
+        return filtered.sorted {
             location.distance(from: $0.0.location) < location.distance(from: $0.1.location)
         }
     }
