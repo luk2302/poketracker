@@ -30,7 +30,6 @@
 		42CC68061E896A6F00E75999 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CC68051E896A6F00E75999 /* refresh.png */; };
 		42CC68081E896D8600E75999 /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC68071E896D8600E75999 /* Networker.swift */; };
 		42CC680A1E89718200E75999 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC68091E89718200E75999 /* Gym.swift */; };
-		42D291E21E5B7369004BC630 /* mons.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D291E11E5B7369004BC630 /* mons.png */; };
 		42D291E41E5B7C44004BC630 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D291E31E5B7C44004BC630 /* Settings.swift */; };
 		F81606007701E72AA33A834C /* Pods_PokeTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E947F169390E9AD6E7189645 /* Pods_PokeTracker.framework */; };
 /* End PBXBuildFile section */
@@ -63,7 +62,6 @@
 		42CC68051E896A6F00E75999 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		42CC68071E896D8600E75999 /* Networker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
 		42CC68091E89718200E75999 /* Gym.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
-		42D291E11E5B7369004BC630 /* mons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mons.png; sourceTree = "<group>"; };
 		42D291E31E5B7C44004BC630 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C8C6097B890E538DD5C8AA3C /* Pods-PokeTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PokeTracker/Pods-PokeTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		E947F169390E9AD6E7189645 /* Pods_PokeTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,7 +116,6 @@
 				4297D4B61E5BA07800BEC489 /* UIImage+Sprite.h */,
 				4297D4B71E5BA07800BEC489 /* UIImage+Sprite.m */,
 				42A7C9471D4FAEFE005842FD /* AppDelegate.swift */,
-				42D291E11E5B7369004BC630 /* mons.png */,
 				42A7C9491D4FAEFE005842FD /* MainViewController.swift */,
 				42A7C94B1D4FAEFE005842FD /* Main.storyboard */,
 				42A7C94E1D4FAEFE005842FD /* Assets.xcassets */,
@@ -229,7 +226,6 @@
 				42A7C94F1D4FAEFE005842FD /* Assets.xcassets in Resources */,
 				42CC68031E8969AA00E75999 /* location_off.png in Resources */,
 				42CC68061E896A6F00E75999 /* refresh.png in Resources */,
-				42D291E21E5B7369004BC630 /* mons.png in Resources */,
 				421518351E8A7F44001D6A37 /* ball_on@2x.png in Resources */,
 				42CC68041E8969AA00E75999 /* location.png in Resources */,
 				4215183E1E8A83CE001D6A37 /* gym_offs@2x.png in Resources */,
