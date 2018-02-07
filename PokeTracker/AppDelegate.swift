@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if Defaults[.pokemonCount] == 0 {
-            Defaults[.pokemonCount] = 251
+            Defaults[.pokemonCount] = 356
         }
         if Defaults[.vibrationThreshold] == 0 {
             Defaults[.vibrationThreshold] = 40
