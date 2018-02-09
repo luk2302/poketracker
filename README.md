@@ -4,7 +4,7 @@ Einfaches iOS-Projekt, um Pokemons zu tracken, sofern eine Map wie https://www.p
 Ziel ist es, eine Möglichkeit zu haben, die erreichbaren Pokemons in direkter Umgebung zu sehen. Man sieht explizit nicht genau wo diese sind. Man soll weiterhin versuchen, ein Pokemon selber aufzuspüren.
 
 ![](https://i.imgur.com/qL4UF1ol.png)
-![](https://i.imgur.com/f2BPlVtl.png)
+![](https://i.imgur.com/b9b0MVYl.png)
 
 ## Features
 
